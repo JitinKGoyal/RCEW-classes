@@ -28,6 +28,7 @@ function ForState() {
         setC(c + 5);
     }
 
+    let arr = ["ff", "dd", "sdf"]
     return (
         <>
             <button onClick={decrease}>-</button>
@@ -38,6 +39,8 @@ function ForState() {
             <button onClick={decreaseC}>-</button>
             <button onClick={increaseC}>+</button>
             <p>c: {c} </p>
+
+
         </>
     )
 }
