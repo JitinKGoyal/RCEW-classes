@@ -47,7 +47,6 @@ function TextM() {
                 <button className='btn btn-info m-2' onClick={forCopy}>copy</button>
                 <button className='btn btn-info m-2' onClick={forclear}>clear</button>
                 <button className='btn btn-info m-2' onClick={forcut}>cut</button>
-                <button className='btn btn-info m-2' onClick={test}>test</button>
             </div>
 
             <div className='text-center'>
