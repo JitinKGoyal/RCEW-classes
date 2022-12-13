@@ -1,14 +1,16 @@
 const express = require('express');
+const User = require('../models/user');
 const router = express.Router();
 
 
+// For Sign Up
 router.get('/', (req, res) => {
-    res.send("this is auth endpoint")
-});
 
-
-router.get('/name', (req, res) => {
-    res.send("this is auth name")
+    // console.log(req.body);
+    const user = User(req.body);
+    user.save();
+    
+    res.send(req.body)
 });
 
 

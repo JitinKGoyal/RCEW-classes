@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const dbURI = "mongodb://localhost:27017";
+const dbURI = "mongodb://localhost:27017/cloud_notebook";
 
 const connectMongo = () => {
     mongoose.connect(dbURI, () => {
