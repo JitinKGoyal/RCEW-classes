@@ -1,8 +1,8 @@
 import './App.css';
-import Navbar from './components/Navbar';
-import Login from './components/Login';
 import { Route, Routes } from 'react-router-dom';
 import SignUp from './components/SignUp';
+import Navbar from './components/navbar/Navbar';
+import Login from './components/login/Login';
 
 function App() {
   return (
@@ -13,7 +13,6 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
       </Routes>
-
 
     </>
   );

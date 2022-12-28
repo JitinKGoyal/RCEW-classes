@@ -1,12 +1,12 @@
 import React from 'react'
-import "../login.css"
+import { Link } from 'react-router-dom'
+import "./login.css"
 
 function Login() {
     return (
         <>
             {/* <!-- Section: Design Block --> */}
             <section className="background-radial-gradient overflow-hidden">
-
 
                 <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
                     <div className="row gx-lg-5 align-items-center mb-5">
@@ -31,10 +31,10 @@ function Login() {
                             <div className="card bg-glass">
                                 <div className="card-body px-4 py-5 px-md-5">
                                     <form>
-                                 
+
                                         {/* <!-- Email input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="email" id="form3Example3" className="form-control py-3" placeholder='Email address'/>
+                                            <input type="email" id="form3Example3" className="form-control py-3" placeholder='Email address' />
                                             {/* <label className="form-label" htmlFor="form3Example3">Email address</label> */}
                                         </div>
 
@@ -51,7 +51,7 @@ function Login() {
                                         </button>
 
                                     </form>
-                                    <a href='/'>Create an account?</a>
+                                    <Link to='/signup'>Create an account?</Link>
                                 </div>
                             </div>
                         </div>

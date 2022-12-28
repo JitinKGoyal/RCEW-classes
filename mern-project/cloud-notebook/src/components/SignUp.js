@@ -1,5 +1,6 @@
 import React from 'react'
-import "../login.css"
+import { Link } from 'react-router-dom'
+import "./login/login.css"
 
 function SignUp() {
     return (
@@ -35,28 +36,24 @@ function SignUp() {
                                         <div className="row">
                                             <div className="col-md-6 mb-4">
                                                 <div className="form-outline">
-                                                    <input type="text" id="form3Example1" className="form-control" />
-                                                    <label className="form-label" htmlFor="form3Example1">First name</label>
+                                                    <input type="text" id="form3Example1" className="form-control py-3" placeholder='First name' />
                                                 </div>
                                             </div>
                                             <div className="col-md-6 mb-4">
                                                 <div className="form-outline">
-                                                    <input type="text" id="form3Example2" className="form-control" />
-                                                    <label className="form-label" htmlFor="form3Example2">Last name</label>
+                                                    <input type="text" id="form3Example2" className="form-control py-3" placeholder='Last name' />
                                                 </div>
                                             </div>
                                         </div>
 
                                         {/* <!-- Email input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="email" id="form3Example3" className="form-control" />
-                                            <label className="form-label" htmlFor="form3Example3">Email address</label>
+                                            <input type="email" id="form3Example3" className="form-control py-3" placeholder='Email address' />
                                         </div>
 
                                         {/* <!-- Password input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="password" id="form3Example4" className="form-control" />
-                                            <label className="form-label" htmlFor="form3Example4">Password</label>
+                                            <input type="password" id="form3Example4" className="form-control py-3" placeholder='Password' />
                                         </div>
 
 
@@ -66,7 +63,7 @@ function SignUp() {
                                         </button>
 
                                     </form>
-                                    <a href='/'>Already have an account?</a>
+                                    <Link to='/login'>Already have an account?</Link>
                                 </div>
                             </div>
                         </div>
