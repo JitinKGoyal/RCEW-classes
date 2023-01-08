@@ -10,7 +10,7 @@ function Navbar() {
     return (
         <>
             <nav className="navbar navbar-expand-custom navbar-mainbg">
-                <a className="navbar-brand navbar-logo" href="#">Navbar</a>
+                <a className="navbar-brand navbar-logo" href="#">Notes</a>
                 <button className="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i className="fas fa-bars text-white"></i>
                 </button>
@@ -32,19 +32,20 @@ function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link" href="javascript:void(0);"><i className="far fa-clone"></i>Components</a>
                         </li> */}
-                        {/* <Link to='/login' className='myLink'>
+                        <Link to='/' className='myLink'>
                             <li className="nav-item active">
-                                <a className="nav-link" href="javascript:void(0);"><i className="far fa-calendar-alt"></i>Calendar</a>
+                                <a className="nav-link" href="javascript:void(0);"><i className="far fa-calendar-alt"></i>Notes</a>
                             </li>
-                        </Link> */}
-                        <Link to='/login' className={`myLink `}>
-                            <li className={`nav-item ${currentLocation == "/login" && "active"} `}>
+                        </Link>
+
+                        <Link to='/login'  className={`myLink `}>
+                            <li id="login-btn" className={`nav-item ${currentLocation == "/login" && "active"} `}>
                                 <a className="nav-link" href="javascript:void(0);"><i className="far fa-chart-bar"></i>Login</a>
                             </li>
                         </Link>
 
                         <Link to='/signup' className='myLink'>
-                            <li className={`nav-item ${currentLocation == "/signup" && "active"} `}>
+                            <li id="signup-btn" className={`nav-item ${currentLocation == "/signup" && "active"} `}>
                                 <a className="nav-link" href="javascript:void(0);"><i className="far fa-copy"></i>Signup</a>
                             </li>
                         </Link>

@@ -63,7 +63,9 @@ function SignUp() {
                                         </button>
 
                                     </form>
-                                    <Link to='/login'>Already have an account?</Link>
+                                    <div onClick={() => document.getElementById("login-btn").click()}>
+                                        <Link to='/login'>Already have an account?</Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

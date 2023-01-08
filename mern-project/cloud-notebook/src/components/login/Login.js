@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import "./login.css"
 
 function Login() {
+
+
     return (
         <>
             {/* <!-- Section: Design Block --> */}
@@ -51,7 +53,9 @@ function Login() {
                                         </button>
 
                                     </form>
-                                    <Link to='/signup'>Create an account?</Link>
+                                    <div onClick={() => document.getElementById("signup-btn").click()}>
+                                        <Link to='/signup'>Create an account?</Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>
