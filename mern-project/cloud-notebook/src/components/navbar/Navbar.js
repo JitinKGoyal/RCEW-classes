@@ -33,7 +33,7 @@ function Navbar() {
                             <a className="nav-link" href="javascript:void(0);"><i className="far fa-clone"></i>Components</a>
                         </li> */}
                         <Link to='/' className='myLink'>
-                            <li className="nav-item active">
+                            <li id="notes-btn" className="nav-item active">
                                 <a className="nav-link" href="javascript:void(0);"><i className="far fa-calendar-alt"></i>Notes</a>
                             </li>
                         </Link>

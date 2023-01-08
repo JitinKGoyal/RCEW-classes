@@ -1,8 +1,39 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import "./login/login.css"
 
 function SignUp() {
+
+    const [name, setName] = useState("")
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+
+
+
+    const handleSignup = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("http://localhost:3002/api/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                name: name,
+                email: email,
+                password: password
+            })
+        })
+        const data = await response.json()
+        console.log(data)
+
+        if (data.email) {
+            navigate("/")
+            document.getElementById("notes-btn").click()
+        }
+    }
+
     return (
         <>
             {/* <!-- Section: Design Block --> */}
@@ -32,33 +63,28 @@ function SignUp() {
                             <div className="card bg-glass">
                                 <div className="card-body px-4 py-5 px-md-5">
                                     <form>
-                                        {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
+                                        {/* <!-- Name input --> */}
                                         <div className="row">
-                                            <div className="col-md-6 mb-4">
+                                            <div className="col-md-12 mb-4">
                                                 <div className="form-outline">
-                                                    <input type="text" id="form3Example1" className="form-control py-3" placeholder='First name' />
-                                                </div>
-                                            </div>
-                                            <div className="col-md-6 mb-4">
-                                                <div className="form-outline">
-                                                    <input type="text" id="form3Example2" className="form-control py-3" placeholder='Last name' />
+                                                    <input type="text" id="form3Example1" className="form-control py-3" value={name} onChange={e => setName(e.target.value)} placeholder='Name' />
                                                 </div>
                                             </div>
                                         </div>
 
                                         {/* <!-- Email input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="email" id="form3Example3" className="form-control py-3" placeholder='Email address' />
+                                            <input type="email" id="form3Example3" className="form-control py-3" value={email} onChange={e => setEmail(e.target.value)} placeholder='Email address' />
                                         </div>
 
                                         {/* <!-- Password input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="password" id="form3Example4" className="form-control py-3" placeholder='Password' />
+                                            <input type="password" id="form3Example4" className="form-control py-3" value={password} onChange={e => setPassword(e.target.value)} placeholder='Password' />
                                         </div>
 
 
                                         {/* <!-- Submit button --> */}
-                                        <button type="submit" className="btn btn-primary btn-block mb-4 w-100">
+                                        <button type="submit" className="btn btn-primary btn-block mb-4 w-100" onClick={handleSignup}>
                                             Sign up
                                         </button>
 
