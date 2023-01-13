@@ -1,11 +1,16 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import "./navbar.css"
 import "./navDesignJs.js"
 
 function Navbar() {
     const location = useLocation();
     const currentLocation = location.pathname;
+
+    const logoutFunc = () => {
+        localStorage.removeItem("clouNotebookCreds")
+        document.getElementById("login-btn").click()
+    }
 
     return (
         <>
@@ -32,13 +37,14 @@ function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link" href="javascript:void(0);"><i className="far fa-clone"></i>Components</a>
                         </li> */}
+
                         <Link to='/' className='myLink'>
                             <li id="notes-btn" className="nav-item active">
                                 <a className="nav-link" href="javascript:void(0);"><i className="far fa-calendar-alt"></i>Notes</a>
                             </li>
                         </Link>
 
-                        <Link to='/login'  className={`myLink `}>
+                        <Link to='/login' className={`myLink `}>
                             <li id="login-btn" className={`nav-item ${currentLocation == "/login" && "active"} `}>
                                 <a className="nav-link" href="javascript:void(0);"><i className="far fa-chart-bar"></i>Login</a>
                             </li>
@@ -47,6 +53,11 @@ function Navbar() {
                         <Link to='/signup' className='myLink'>
                             <li id="signup-btn" className={`nav-item ${currentLocation == "/signup" && "active"} `}>
                                 <a className="nav-link" href="javascript:void(0);"><i className="far fa-copy"></i>Signup</a>
+                            </li>
+                        </Link>
+                        <Link to='/login' className='myLink'>
+                            <li id="logout-btn" onClick={logoutFunc} className="nav-item active">
+                                <a className="nav-link" href="javascript:void(0);"><i className="far fa-calendar-alt"></i>Logout</a>
                             </li>
                         </Link>
                     </ul>

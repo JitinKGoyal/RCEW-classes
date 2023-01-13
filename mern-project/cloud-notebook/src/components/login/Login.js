@@ -1,9 +1,38 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import "./login.css"
 
 function Login() {
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [errors, setErrors] = useState([])
+    const navigate = useNavigate();
+
+    const handleSignup = async (e) => {
+        e.preventDefault();
+
+        const response = await fetch("http://localhost:3002/api/auth/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        })
+        const data = await response.json()
+
+        if (data.email) {
+            localStorage.setItem("clouNotebookCreds", JSON.stringify(data))
+            navigate("/")
+            document.getElementById("notes-btn").click()
+        } else {
+            setErrors(data.errors)
+            console.log(data.errors)
+        }
+    }
 
     return (
         <>
@@ -36,23 +65,28 @@ function Login() {
 
                                         {/* <!-- Email input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="email" id="form3Example3" className="form-control py-3" placeholder='Email address' />
+                                            <input type="email" id="form3Example3" className="form-control py-3" placeholder='Email address' value={email} onChange={e => setEmail(e.target.value)} />
                                             {/* <label className="form-label" htmlFor="form3Example3">Email address</label> */}
                                         </div>
 
                                         {/* <!-- Password input --> */}
                                         <div className="form-outline mb-4">
-                                            <input type="password" id="form3Example4" className="form-control py-3" placeholder='Password' />
+                                            <input type="password" id="form3Example4" className="form-control py-3" placeholder='Password' value={password} onChange={e => setPassword(e.target.value)} />
                                             {/* <label className="form-label" htmlFor="form3Example4">Password</label> */}
                                         </div>
 
 
                                         {/* <!-- Submit button --> */}
-                                        <button type="submit" className="btn btn-primary btn-block mb-4 w-100">
+                                        <button type="submit" onClick={handleSignup} className="btn btn-primary btn-block mb-4 w-100">
                                             Login
                                         </button>
 
                                     </form>
+                                    {errors.map(e => (
+                                        <p className='text-center text-danger m-0'>
+                                            <img src="https://img.icons8.com/color/48/null/break--v4.png" height="30px" className='mx-2' />{e.msg}
+                                        </p>
+                                    ))}
                                     <div onClick={() => document.getElementById("signup-btn").click()}>
                                         <Link to='/signup'>Create an account?</Link>
                                     </div>

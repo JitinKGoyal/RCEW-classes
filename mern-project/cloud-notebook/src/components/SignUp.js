@@ -7,9 +7,8 @@ function SignUp() {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [errors, setErrors] = useState([])
     const navigate = useNavigate()
-
-
 
     const handleSignup = async (e) => {
         e.preventDefault();
@@ -26,11 +25,13 @@ function SignUp() {
             })
         })
         const data = await response.json()
-        console.log(data)
 
         if (data.email) {
-            navigate("/")
-            document.getElementById("notes-btn").click()
+            navigate("/login")
+            document.getElementById("login-btn").click()
+        } else {
+            setErrors(data.errors)
+            console.log(data.errors)
         }
     }
 
@@ -38,7 +39,6 @@ function SignUp() {
         <>
             {/* <!-- Section: Design Block --> */}
             <section className="background-radial-gradient overflow-hidden">
-
 
                 <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
                     <div className="row gx-lg-5 align-items-center mb-5">
@@ -62,6 +62,7 @@ function SignUp() {
 
                             <div className="card bg-glass">
                                 <div className="card-body px-4 py-5 px-md-5">
+
                                     <form>
                                         {/* <!-- Name input --> */}
                                         <div className="row">
@@ -89,6 +90,14 @@ function SignUp() {
                                         </button>
 
                                     </form>
+                                    {/* error */}
+
+                                    {errors.map(e => (
+                                        <p className='text-center text-danger m-0'>
+                                            <img src="https://img.icons8.com/color/48/null/break--v4.png" height="30px" className='mx-2'/>{e.msg}
+                                        </p>
+                                        
+                                    ))}
                                     <div onClick={() => document.getElementById("login-btn").click()}>
                                         <Link to='/login'>Already have an account?</Link>
                                     </div>

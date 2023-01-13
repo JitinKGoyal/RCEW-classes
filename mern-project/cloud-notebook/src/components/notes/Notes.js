@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Note from '../Note'
 
 import "./notes.css"
 
 function Notes() {
+    const navigate = useNavigate();
+    const [loggedin, setLoggedin] = useState(false)
+
+    useEffect(() => {
+
+        const data = JSON.parse(localStorage.getItem("clouNotebookCreds"));
+        if (data?._id) {
+            console.log("first")
+            setLoggedin(true)
+        } else {
+            console.log("second")
+            navigate("/login")
+            document.getElementById("login-btn").click()
+        }
+
+    }, [])
+
+
     return (
         <>
 
@@ -29,10 +48,10 @@ function Notes() {
                             <form>
                                 <div class="form-group">
                                     {/* <label for="recipient-name" class="col-form-label">Recipient:</label> */}
-                                    <input type="text" class="form-control" id="recipient-name" placeholder='Title'/>
+                                    <input type="text" class="form-control" id="recipient-name" placeholder='Title' />
                                 </div>
                                 <div class="form-group my-3">
-                                    <input type="text" class="form-control" id="recipient-name" placeholder='Tag'/>
+                                    <input type="text" class="form-control" id="recipient-name" placeholder='Tag' />
                                 </div>
                                 <div class="form-group">
                                     {/* <label for="message-text" class="col-form-label">Message:</label> */}

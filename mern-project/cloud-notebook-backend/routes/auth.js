@@ -11,7 +11,7 @@ const signUpValidations = [
 
 const loginValidations = [
     body('email', "Enter a valid email").isEmail(),
-    body('password').exists()]
+    body('password', "Enter a password").isLength({ min: 1 })]
 
 // For Sign Up
 router.post('/signup', signUpValidations, async (req, res) => {
@@ -24,7 +24,7 @@ router.post('/signup', signUpValidations, async (req, res) => {
     const user = await User.findOne({ email: req.body.email }); // 2sec
 
     if (user) {
-        return res.json({ error: "user already exists" });
+        return res.status(400).json({ errors: [{ msg: "user already exists" }] });
     }
 
     const salt = bcrypt.genSaltSync(10);
@@ -50,13 +50,13 @@ router.post('/login', loginValidations, async (req, res) => {
     }
 
     const user = await User.findOne({ email: req.body.email });
-    if (!user) return res.status(404).json({ error: "user does not exists" });
+    if (!user) return res.status(404).json({ errors: [{ msg: "user does not exists" }] });
 
     // req.body.password  -> simple string
     // user.password  -> encrypted 
 
     const result = bcrypt.compareSync(req.body.password, user.password);
-    if (!result) return res.status(404).json({ error: "incorrect password" });
+    if (!result) return res.status(404).json({ errors: [{ msg: "incorrect password" }] });
 
     res.json(user);
 
