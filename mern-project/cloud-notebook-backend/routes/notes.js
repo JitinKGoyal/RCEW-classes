@@ -42,18 +42,18 @@ router.post('/', postNotesValidations, async (req, res) => {
 
 
 // API to get all notes of a user
-router.get('/', body("userId").exists(), async (req, res) => {
+router.get('/:userId', async (req, res) => {
 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    const user = await User.findById(req.body.userId);
+    const user = await User.findById(req.params.userId);
 
     if (!user) return res.status(404).json({ error: "user does not exist" });
 
-    const notes = await Notes.find({ "user": req.body.userId });
+    const notes = await Notes.find({ "user": req.params.userId });
 
     res.json(notes);
 
@@ -100,7 +100,7 @@ router.delete('/', deleteNotesValidations, (req, res) => {
 
         note = await Notes.findByIdAndDelete(req.body.id);
 
-        res.json(note); 
+        res.json(note);
     });
 
 })

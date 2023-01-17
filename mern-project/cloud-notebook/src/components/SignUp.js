@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { baseUrl } from '../config'
 import "./login/login.css"
 
 function SignUp() {
@@ -13,7 +14,7 @@ function SignUp() {
     const handleSignup = async (e) => {
         e.preventDefault();
 
-        const response = await fetch("http://localhost:3002/api/auth/signup", {
+        const response = await fetch(`${baseUrl}/auth/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

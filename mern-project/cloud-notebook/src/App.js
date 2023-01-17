@@ -17,7 +17,6 @@ function App() {
         <Route path='/' element={<Notes />} />
       </Routes>
 
-   
     </>
   );
 }
