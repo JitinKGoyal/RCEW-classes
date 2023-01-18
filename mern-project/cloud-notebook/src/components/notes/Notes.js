@@ -6,7 +6,7 @@ import Note from '../Note'
 import "./notes.css"
 
 function Notes() {
-    const userId = JSON.parse(localStorage.getItem("clouNotebookCreds"))._id
+    const userId = JSON.parse(localStorage.getItem("clouNotebookCreds"))?._id
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")

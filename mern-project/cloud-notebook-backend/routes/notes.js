@@ -68,15 +68,23 @@ router.put('/', putNotesValidations, async (req, res) => {
         return res.status(400).json({ errors: errors.array() });
     }
 
-    let note = await Notes.findById(req.body.id);
+    Notes.findById(req.body.id, async (err, note) => {
+        if (err) {
+            return res.status(404).json({ error: "note does not exist" });
+        }
 
-    note.title = req.body.title;
-    note.description = req.body.description;
-    note.tag = req.body.tag;
+        note.title = req.body.title;
+        note.description = req.body.description;
+        note.tag = req.body.tag;
 
-    note = await Notes.findByIdAndUpdate(req.body.id, { $set: note }, { new: true });
+        note = await Notes.findByIdAndUpdate(req.body.id, { $set: note }, { new: true });
 
-    res.json(note);
+        res.json(note);
+
+    });
+
+
+
 
 })
 
