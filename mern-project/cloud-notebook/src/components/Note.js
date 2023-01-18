@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { baseUrl } from '../config'
 
 function Note(props) {
@@ -23,8 +23,13 @@ function Note(props) {
         props.getNotes()
     }
 
+    function editBtnFunc() {
+       props.noteEdit(title, description, tag, _id)
+    }
+
     return (
         <>
+           
             <section>
                 <p className='text-white tag'>{tag}</p>
                 <div class="heart" onClick={deleteNote}><i class="fas fa-trash"></i></div>
@@ -33,10 +38,13 @@ function Note(props) {
                     <p></p>
                     <p>{description}</p>
                 </div>
-                <button class="buy-btn">
-                    Edit
-                </button>
+
+                <button type="button" class="buy-btn" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" onClick={editBtnFunc}>edit</button>
+
             </section>
+
+          
+
         </>
     )
 }

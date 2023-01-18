@@ -8,10 +8,12 @@ import "./notes.css"
 function Notes() {
     const userId = JSON.parse(localStorage.getItem("clouNotebookCreds"))?._id
 
+    const [id, setId] = useState("")
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [tag, setTag] = useState("")
     const [notes, setNotes] = useState([])
+    const [isUpdating, setIsUpdating] = useState(false)
 
     const navigate = useNavigate();
 
@@ -28,19 +30,41 @@ function Notes() {
     }, [])
 
     async function addNote() {
-        const response = await fetch(`${baseUrl}/notes`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                userId: userId,
-                title: title,
-                description: description,
-                tag: tag
+
+        if (isUpdating) {
+
+            const response = await fetch(`${baseUrl}/notes`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id: id,
+                    title: title,
+                    description: description,
+                    tag: tag
+                })
             })
-        })
-        const data = await response.json()
+            const data = await response.json()
+            backToAdd()
+
+        } else {
+
+            const response = await fetch(`${baseUrl}/notes`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    userId: userId,
+                    title: title,
+                    description: description,
+                    tag: tag
+                })
+            })
+            const data = await response.json()
+
+        }
         getNotes();
     }
 
@@ -48,6 +72,22 @@ function Notes() {
         const response = await fetch(`${baseUrl}/notes/${userId}`)
         const notes = await response.json();
         setNotes(notes)
+    }
+
+    function noteEdit(title, description, tag, id) {
+        setTitle(title)
+        setDescription(description)
+        setTag(tag)
+        setId(id)
+        setIsUpdating(true)
+    }
+
+    function backToAdd() {
+        setIsUpdating(false)
+        setTitle("")
+        setDescription("")
+        setTag("")
+        setId("")
     }
 
     return (
@@ -58,7 +98,7 @@ function Notes() {
 
                 <div className='d-flex justify-content-around align-items-start flex-wrap'>
                     {notes.map(e => (
-                        <Note note={e} getNotes={getNotes} />
+                        <Note note={e} getNotes={getNotes} noteEdit={noteEdit} />
                     ))}
 
                 </div>
@@ -87,8 +127,8 @@ function Notes() {
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={addNote}>Send message</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick={backToAdd}>Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" onClick={addNote}>{isUpdating ? "Udapte note" : "Add note"}</button>
                         </div>
                     </div>
                 </div>
